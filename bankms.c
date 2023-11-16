@@ -6,19 +6,18 @@
 #include <ctype.h>
 
 void transfermoney(void);
-void display(char*);
-void person(char*);
-void checkbalance(char*);
+void display(char *);
+void checkbalance(char *);
 void login(void);
 void signin(void);
 void accountcreated(void);
-void afterlogin(void);
 void account(void);
 void logout(void);
 int isValidNumeric(char num[]);
 int isValidAdhar(char num[]);
 
-struct pass {
+struct pass
+{
     char username[50];
     char date[2], month[2], year[4];
     char pnumber[15];
@@ -32,19 +31,22 @@ struct pass {
     char balance[10];
 };
 
-struct money {
+struct money
+{
     char usernameto[50];
     char userpersonfrom[50];
     long int money1;
 };
 
-struct userpass {
+struct userpass
+{
     char password[50];
 };
 
-int len=0;
+int len = 0;
 
-int main() {
+int main()
+{
     int i, a, b, choice;
     int passwordlength;
 
@@ -56,25 +58,27 @@ int main() {
     printf("\n\nENTER YOUR CHOICE..\n");
     scanf("%d", &choice);
 
-    switch (choice) {
-        case 1:
-            system("cls");
-            account();
-            break;
-        case 2:
-            login();
-            break;
-        case 3:
-            exit(0);
-            break;
-        default:
-            printf("Invalid Choice Entered!\n");
-            main();
+    switch (choice)
+    {
+    case 1:
+        system("cls");
+        account();
+        break;
+    case 2:
+        login();
+        break;
+    case 3:
+        exit(0);
+        break;
+    default:
+        printf("Invalid Choice Entered!\n");
+        main();
         getch();
     }
 }
 
-void account(void) {
+void account(void)
+{
     char password[20];
     int passwordlength, i, seek = 0;
     char ch;
@@ -108,13 +112,13 @@ void account(void) {
     printf("\n\nDATE OF BIRTH..\n");
     printf("DATE-");
     scanf("%s", &u1.date);
-    
+
     printf("MONTH-");
     scanf("%s", &u1.month);
-    
+
     printf("YEAR-");
     scanf("%s", &u1.year);
-    
+
     printf("\n\nADHAR NUMBER\n");
     scanf("%s", u1.adharnum);
     isValidAdhar(u1.adharnum);
@@ -131,31 +135,35 @@ void account(void) {
     scanf("%s", &u1.username);
 
     printf("\n\nPASSWORD..\n");
-    for (i = 0; i < 50; i++) {
+    for (i = 0; i < 50; i++)
+    {
         ch = getch();
-        if (ch != 13) {
+        if (ch != 13)
+        {
             password[i] = ch;
             ch = '*';
             printf("%c", ch);
-        } else
+        }
+        else
             break;
     }
 
     printf("Enter the Deposit Amount(min:1000/-)");
-    scanf("%s",u1.balance);
+    scanf("%s", u1.balance);
 
-    
     fwrite(&u1, sizeof(u1), 1, fp);
     fclose(fp);
     accountcreated();
 }
 
-void accountcreated(void) {
+void accountcreated(void)
+{
     int i;
     char ch;
     system("cls");
     printf("PLEASE WAIT....\n\nYOUR DATA IS PROCESSING....\n");
-    for (i = 0; i < 200000000; i++) {
+    for (i = 0; i < 200000000; i++)
+    {
         i++;
         i--;
     }
@@ -164,7 +172,8 @@ void accountcreated(void) {
     login();
 }
 
-void login(void) {
+void login(void)
+{
     system("cls");
     char username[50];
     char password[50];
@@ -176,30 +185,36 @@ void login(void) {
 
     fp = fopen("username.txt", "rb");
 
-    if (fp == NULL) {
+    if (fp == NULL)
+    {
         printf("ERROR IN OPENING FILE");
     }
     printf(" ACCOUNT LOGIN \n");
     printf("********************"
-        "************\n");
+           "************\n");
     printf("==== LOG IN ====\n");
 
     printf("USERNAME..\n");
     scanf("%s", &username);
     printf("PASSWORD..\n");
 
-    for (i = 0; i < 50; i++) {
+    for (i = 0; i < 50; i++)
+    {
         ch = getch();
-        if (ch != 13) {
+        if (ch != 13)
+        {
             password[i] = ch;
             ch = '*';
             printf("%c", ch);
-        } else
+        }
+        else
             break;
     }
 
-    while (fread(&u1, sizeof(u1), 1, fp)) {
-        if (strcmp(username, u1.username) == 0) {
+    while (fread(&u1, sizeof(u1), 1, fp))
+    {
+        if (strcmp(username, u1.username) == 0)
+        {
             signin();
             display(username);
         }
@@ -207,13 +222,15 @@ void login(void) {
     fclose(fp);
 }
 
-void signin(void) {
+void signin(void)
+{
     int i;
-    FILE* fp;
+    FILE *fp;
     struct pass u1;
     system("cls");
     printf("Fetching account details.....\n");
-    for (i = 0; i < 20000; i++) {
+    for (i = 0; i < 20000; i++)
+    {
         i++;
         i--;
     }
@@ -221,19 +238,23 @@ void signin(void) {
     getch();
 }
 
-void display(char username1[]) {
+void display(char username1[])
+{
     system("cls");
-    FILE* fp;
+    FILE *fp;
     int choice, i;
     fp = fopen("username.txt", "rb");
     struct pass u1;
 
-    if (fp == NULL) {
+    if (fp == NULL)
+    {
         printf("error in opening file");
     }
 
-    while (fread(&u1, sizeof(u1), 1, fp)) {
-        if (strcmp(username1, u1.username) == 0) {
+    while (fread(&u1, sizeof(u1), 1, fp))
+    {
+        if (strcmp(username1, u1.username) == 0)
+        {
             printf("WELCOME, %s %s\n", u1.fname, u1.lname);
             printf("..........................\n");
             printf("=== YOUR ACCOUNT INFO ===\n");
@@ -258,24 +279,26 @@ void display(char username1[]) {
     printf(" ENTER YOUR CHOICES..\n");
     scanf("%d", &choice);
 
-    switch (choice) {
-        case 1:
-            checkbalance(username1);
-            break;
-        case 2:
-            transfermoney();
-            break;
-        case 3:
-            logout();
-            login();
-            break;
-        case 4:
-            exit(0);
-            break;
+    switch (choice)
+    {
+    case 1:
+        checkbalance(username1);
+        break;
+    case 2:
+        transfermoney();
+        break;
+    case 3:
+        logout();
+        login();
+        break;
+    case 4:
+        exit(0);
+        break;
     }
 }
 
-void transfermoney(void) {
+void transfermoney(void)
+{
     int i, j;
     FILE *fm, *fp;
     struct pass u1;
@@ -295,8 +318,10 @@ void transfermoney(void) {
     printf(" TO (username of person)..");
     scanf("%s", &usernamep);
 
-    while (fread(&u1, sizeof(u1), 1, fp)) {
-        if (strcmp(usernamep, u1.username) == 0) {
+    while (fread(&u1, sizeof(u1), 1, fp))
+    {
+        if (strcmp(usernamep, u1.username) == 0)
+        {
             strcpy(m1.usernameto, u1.username);
             strcpy(m1.userpersonfrom, usernamet);
         }
@@ -317,8 +342,10 @@ void transfermoney(void) {
 
     printf("transferring amount, Please wait..");
 
-    for (i = 0; i < 70; i++) {
-        for (j = 0; j < 1200000; j++) {
+    for (i = 0; i < 70; i++)
+    {
+        for (j = 0; j < 1200000; j++)
+        {
             j++;
             j--;
         }
@@ -332,9 +359,10 @@ void transfermoney(void) {
     display(usernamet);
 }
 
-void checkbalance(char username2[]) {
+void checkbalance(char username2[])
+{
     system("cls");
-    FILE* fm;
+    FILE *fm;
     struct money m1;
     char ch;
     int i = 1, summoney = 0;
@@ -350,8 +378,10 @@ void checkbalance(char username2[]) {
     printf("TRANSACTION ID");
     printf("AMOUNT");
 
-    while (fread(&m1, sizeof(m1), 1, fm)) {
-        if (strcmp(username2, m1.usernameto) == 0) {
+    while (fread(&m1, sizeof(m1), 1, fm))
+    {
+        if (strcmp(username2, m1.usernameto) == 0)
+        {
             printf("%d", i);
             i++;
             printf("%s", m1.userpersonfrom);
@@ -368,13 +398,16 @@ void checkbalance(char username2[]) {
     display(username2);
 }
 
-void logout(void) {
+void logout(void)
+{
     int i, j;
     system("cls");
     printf("please wait, logging out");
 
-    for (i = 0; i < 10; i++) {
-        for (j = 0; j < 25000000; j++) {
+    for (i = 0; i < 10; i++)
+    {
+        for (j = 0; j < 25000000; j++)
+        {
             i++;
             i--;
         }
@@ -387,20 +420,21 @@ void logout(void) {
 }
 
 int isValidNumeric(char num[])
-{   len = 0;
-    for(int cnt = 0; cnt < 255; cnt++)
+{
+    len = 0;
+    for (int cnt = 0; cnt < 255; cnt++)
     {
-        if(num[cnt] == '\0')
+        if (num[cnt] == '\0')
             break;
         len++;
-        if(isdigit(num[cnt]) == 0)
+        if (isdigit(num[cnt]) == 0)
         {
             len = 0;
             return 4;
-        } 
+        }
     }
 
-    if(len != 10)
+    if (len != 10)
     {
         printf("ERROR: phone number must be of 10 digits. \n");
         main();
@@ -412,20 +446,21 @@ int isValidNumeric(char num[])
 }
 
 int isValidAdhar(char num[])
-{   len = 0;
-    for(int cnt = 0; cnt < 255; cnt++)
+{
+    len = 0;
+    for (int cnt = 0; cnt < 255; cnt++)
     {
-        if(num[cnt] == '\0')
+        if (num[cnt] == '\0')
             break;
         len++;
-        if(isdigit(num[cnt]) == 0)
+        if (isdigit(num[cnt]) == 0)
         {
             len = 0;
             return 4;
-        } 
+        }
     }
 
-    if(len != 12)
+    if (len != 12)
     {
         printf("ERROR: Adhar number must be of 12 digits. \n");
         main();
